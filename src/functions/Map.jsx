@@ -8,26 +8,59 @@ function Map() {
   const [markers, setMarkers] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [currentGuide, setCurrentGuide] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(false);
   const markersRef = useRef([]);
   const routeControlRef = useRef(null);
   const markerInstancesRef = useRef({});
 
-  // Function to fetch location name
+  // Improved location name fetching
   const getLocationName = async (lat, lng) => {
+    setLoadingLocation(true);
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
       );
       const data = await response.json();
-      if (data.address) {
-        const { town, city, village, municipality, state, country } = data.address;
-        const locationName = town || city || village || municipality || "Unknown Location";
-        return `${locationName}, ${municipality || ""}, ${state || ""} ${country || ""}`.trim();
+      
+      if (!data.address) {
+        return `Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
       }
-      return "Unknown Location";
+
+      const { 
+        village, town, city, 
+        municipality, county, state, 
+        country, neighbourhood, 
+        road, suburb, hamlet
+      } = data.address;
+
+      // Build location name from most specific to least specific
+      const locationParts = [
+        road,
+        neighbourhood,
+        hamlet,
+        village,
+        suburb,
+        town,
+        city,
+        municipality,
+        county,
+        state,
+        country
+      ].filter(Boolean); // Remove empty parts
+
+      // If we have at least one part, join them
+      if (locationParts.length > 0) {
+        // Join with commas but avoid consecutive commas
+        return locationParts.reduce((acc, part) => 
+          acc ? `${acc}, ${part}` : part, '');
+      }
+
+      return `Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
     } catch (error) {
       console.error("Error fetching location name:", error);
-      return "Unknown Location";
+      return `Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+    } finally {
+      setLoadingLocation(false);
     }
   };
 
@@ -174,7 +207,7 @@ function Map() {
         }
 
         const confirmSave = window.confirm(
-          `Do you want to save this marker at (${lat.toFixed(6)}, ${lng.toFixed(6)})?`
+          `Do you want to save a marker at (${lat.toFixed(6)}, ${lng.toFixed(6)})?`
         );
 
         if (confirmSave) {
@@ -214,6 +247,7 @@ function Map() {
       <div style={{ display: "flex", marginTop: "20px" }}>
         <div style={{ flex: 1 }}>
           <h2>Saved Locations:</h2>
+          {loadingLocation && <p>Loading location data...</p>}
           <ul style={{ listStyle: "none", padding: 0 }}>
             {markers.map((marker, index) => (
               <li 
