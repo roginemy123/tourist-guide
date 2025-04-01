@@ -1,6 +1,6 @@
 {
-  "name": "tguide",
-  "homepage": "https://roginemy123.github.io/tguide",
+  "name": "ph-tourist-guide",
+  "homepage": "https://roginemy123.github.io/ph-tourist-guide",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/leaflet": "^1.9.17",
+    "@types/leaflet-routing-machine": "^3.2.8",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
