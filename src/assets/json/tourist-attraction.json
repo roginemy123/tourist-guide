@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Magellan's Cross",
+      "lat": 10.2941,
+      "lng": 123.9021,
+      "description": "Historic Christian cross planted by Portuguese explorers"
+    },
+    {
+      "name": "Fort San Pedro",
+      "lat": 10.2924,
+      "lng": 123.9051,
+      "description": "Military defense structure built by Spanish colonialists"
+    },
+    {
+      "name": "Basilica del Santo Niño",
+      "lat": 10.2944,
+      "lng": 123.9017,
+      "description": "Oldest Roman Catholic church in the Philippines"
+    },
+    {
+      "name": "Taoist Temple",
+      "lat": 10.3256,
+      "lng": 123.9183,
+      "description": "Chinese temple with panoramic views of Cebu City"
+    },
+    {
+      "name": "Cebu Metropolitan Cathedral",
+      "lat": 10.2965,
+      "lng": 123.9029,
+      "description": "Mother church of Cebu's Roman Catholic Archdiocese"
+    },
+    {
+        "name": "Gullas Heights",
+        "lat": 10.2568505,
+        "lng": 123.7735763,
+        "description": "Gullas Heights in Minglanilla, Cebu"
+      }
+  ]
