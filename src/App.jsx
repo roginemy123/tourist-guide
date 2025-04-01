@@ -11,5 +11,7 @@ function App(){
 
 // console.log(SaveUserLocations);
 
+console.log("hello world")
+
 
 export default App;
