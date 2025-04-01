@@ -3,6 +3,15 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 
+// Fix for default marker icons
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
 function Map() {
   const mapRef = useRef(null);
   const [markers, setMarkers] = useState([]);
@@ -13,7 +22,6 @@ function Map() {
   const routeControlRef = useRef(null);
   const markerInstancesRef = useRef({});
 
-  // Improved location name fetching
   const getLocationName = async (lat, lng) => {
     setLoadingLocation(true);
     try {
@@ -33,7 +41,6 @@ function Map() {
         road, suburb, hamlet
       } = data.address;
 
-      // Build location name from most specific to least specific
       const locationParts = [
         road,
         neighbourhood,
@@ -46,11 +53,9 @@ function Map() {
         county,
         state,
         country
-      ].filter(Boolean); // Remove empty parts
+      ].filter(Boolean);
 
-      // If we have at least one part, join them
       if (locationParts.length > 0) {
-        // Join with commas but avoid consecutive commas
         return locationParts.reduce((acc, part) => 
           acc ? `${acc}, ${part}` : part, '');
       }
@@ -64,7 +69,6 @@ function Map() {
     }
   };
 
-  // Create route between two points
   const createRoute = (fromLat, fromLng, toLat, toLng, name) => {
     if (routeControlRef.current) {
       mapRef.current.removeControl(routeControlRef.current);
@@ -99,7 +103,6 @@ function Map() {
     });
   };
 
-  // Handle marker deletion
   const handleDeleteMarker = (markerToDelete) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete the marker at ${markerToDelete.name}?`
@@ -107,27 +110,23 @@ function Map() {
     
     if (!confirmDelete) return;
 
-    // Remove from markers array
     const updatedMarkers = markers.filter(marker => 
       !(marker.lat === markerToDelete.lat && marker.lng === markerToDelete.lng)
     );
     setMarkers(updatedMarkers);
     localStorage.setItem("userLocations", JSON.stringify(updatedMarkers));
 
-    // Remove from map
     const markerKey = `${markerToDelete.lat},${markerToDelete.lng}`;
     if (markerInstancesRef.current[markerKey]) {
       mapRef.current.removeLayer(markerInstancesRef.current[markerKey]);
       delete markerInstancesRef.current[markerKey];
     }
 
-    // Remove from markersRef
     markersRef.current = markersRef.current.filter(marker => 
       !(marker.lat === markerToDelete.lat && marker.lng === markerToDelete.lng)
     );
   };
 
-  // Load saved markers
   useEffect(() => {
     try {
       const savedLocations = JSON.parse(localStorage.getItem("userLocations"));
@@ -140,7 +139,6 @@ function Map() {
     }
   }, []);
 
-  // Initialize map and get user location
   useEffect(() => {
     if (!mapRef.current) {
       mapRef.current = L.map("map").setView([10.3157, 123.8854], 10);
@@ -161,10 +159,8 @@ function Map() {
     }
   }, []);
 
-  // Handle marker clicks and show route + guide
   useEffect(() => {
     if (mapRef.current && userLocation) {
-      // Clear existing markers
       markersRef.current.forEach(marker => {
         const markerKey = `${marker.lat},${marker.lng}`;
         if (markerInstancesRef.current[markerKey]) {
@@ -174,7 +170,6 @@ function Map() {
       markersRef.current = [];
       markerInstancesRef.current = {};
 
-      // Add new markers
       markers.forEach(({ lat, lng, name }) => {
         const markerKey = `${lat},${lng}`;
         if (!markerInstancesRef.current[markerKey]) {
@@ -195,7 +190,6 @@ function Map() {
     }
   }, [markers, userLocation]);
 
-  // Handle map clicks to add new markers
   useEffect(() => {
     if (mapRef.current) {
       const handleMapClick = async (e) => {
