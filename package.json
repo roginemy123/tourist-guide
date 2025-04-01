@@ -15,6 +15,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet-routing-machine": "^3.2.12",
     "props-type": "^1.0.1",
     "react": "^19.0.0",
