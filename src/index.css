@@ -1,4 +1,68 @@
 #map{
-  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100% !important;
+  z-index: 1;
 }
+
+.map-container{ 
+   position: relative;
+   z-index:1;
+   min-height: 100vh;
+}
+
+.btn-container{
+  z-index: 1111;
+  top: 80%;
+}
+.btn .text {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.btn:hover .text {
+  opacity: 1;
+  visibility: visible;
+  display: unset !important;
+}
+
+.saved-locations {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 111;
+  border-radius: 20px 0px 0 0px;
+  max-width: 400px;
+  max-height: 300px;
+}
+
+.saved-locations .overflow-auto{max-height: 220px;}
+
+/* Make the scrollbar thinner */
+.saved-locations .overflow-auto::-webkit-scrollbar {
+  width: 5px; /* Adjust the width to make it thinner */
+  height: 10px !important;
+}
+
+/* Style the scrollbar track */
+.saved-locations .overflow-auto::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb (the part the user drags) */
+.saved-locations .overflow-auto::-webkit-scrollbar-thumb {
+  background: #0d6efd; /* Darker thumb */
+  border-radius: 10px;
+}
+
+/* Hover effect on the thumb */
+.saved-locations .overflow-auto::-webkit-scrollbar-thumb:hover {
+  opacity: .8;
+}
+
+
+.saved-locations h5{ border-radius: 20px 0 0 0; }

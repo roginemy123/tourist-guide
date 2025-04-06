@@ -34,5 +34,11 @@
         "lat": 10.2568505,
         "lng": 123.7735763,
         "description": "Gullas Heights in Minglanilla, Cebu"
-      }
+    },
+    {
+        "name": "Tops",
+        "lat": 10.370619,
+        "lng": 123.8605766,
+        "description": "Capturing Cebu's beauty from the top"
+    }
   ]

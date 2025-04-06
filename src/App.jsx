@@ -1,5 +1,4 @@
 import Map from "./functions/Map";
-import SaveUserLocations from "./functions/SaveUserLocations";
 
 function App(){
     return (
