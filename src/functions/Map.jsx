@@ -447,15 +447,17 @@ function Map() {
             </div>
           )}
         </div>
-
+  
         <Buttons/>
         <SavedLocations
-          loading={loadingLocation}
-          location={userLocation}
+          loadingLocation={loadingLocation}
+          userLocation={userLocation}
           markers={markers}
-          setMrk={setMarkers}
+          setMarkers={setMarkers}
+          createRoute={createRoute}
+          routingControlRef={routeControlRef}
         />
-
+  
         <TouristAttraction 
           attractions={TouristAttractions} 
           onClick={handleAttractionClick}

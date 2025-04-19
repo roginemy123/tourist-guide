@@ -10,6 +10,8 @@ function App(){
 
 // console.log(SaveUserLocations);
 
+// localStorage.clear();
+
 
 
 

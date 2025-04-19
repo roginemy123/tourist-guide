@@ -1,7 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapLocation } from '@fortawesome/free-solid-svg-icons';
+
 function TouristAttraction({ attractions, onClick }) {
   return (
-    <div style={{ flex: 1 }}>
-      <h2>Tourist Attractions:</h2>
+    <div className="tourist-attractions bg-light bg-light pt-0 pe-0 ps-0 p-3" style={{ flex: 1 }}>
+      <span className="bg-primary text-light p-3 w-100">
+              <FontAwesomeIcon icon={faMapLocation} className='text-light' /> Tourist Attractions
+      </span>
+      <div className="overflow-auto list">
       <ul style={{ listStyle: "none", padding: 0 }}>
         {attractions.map((attraction, index) => (
           <li
@@ -25,6 +31,7 @@ function TouristAttraction({ attractions, onClick }) {
           </li>
         ))}
       </ul>
+      </div>
     </div>
   );
 }

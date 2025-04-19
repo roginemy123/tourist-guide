@@ -1,24 +1,42 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faLocationDot, faMapLocation } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faMapLocation } from '@fortawesome/free-solid-svg-icons'
+import ButtonFunctions from './ButtonFunctions';
 
-function Buttons(){
-    let savedLocationBtn = <button type="button" className="btn btn-primary rounded-0 rounded-start rounded-pill d-block mb-3">
-        <span className="d-none text">Saved Locations </span>
+function Buttons() {
+    const handleSavedLocationClick = () => {
+        ButtonFunctions({ el: document.querySelector(".saved-locations"), secondEl: document.querySelector(".tourist-attractions") });
+    };
 
-        <span className='bg-light p-1 py-0 rounded-circle'> <FontAwesomeIcon icon={faLocationDot} className='text-primary' /></span> </button>;
-    let touristAttractionBtn = <button type="button" className="btn btn-primary rounded-0 rounded-start rounded-pill">
-        <span className="d-none text">Tourist Attractions </span> 
-        <span className='bg-light p-1 py-0 rounded-circle'> <FontAwesomeIcon icon={faMapLocation} className='text-primary' /></span> </button>;
+    const handleTouristAttractionClick = () => {
+        ButtonFunctions({ el: document.querySelector(".tourist-attractions"), secondEl: document.querySelector(".saved-locations") });
+    };
 
     return (
-        <>
-            <div className="position-absolute left-0 btn-container">
-                <div className="">
-                    {savedLocationBtn}
-                    {touristAttractionBtn}
-                </div>
+        <div className="position-absolute left-0 btn-container">
+            <div className="">
+                <button 
+                    type="button" 
+                    onClick={handleSavedLocationClick} 
+                    className="btn btn-primary rounded-0 rounded-start rounded-pill d-block mb-3"
+                >
+                    <span className="d-none text">Saved Locations</span>
+                    <span className='bg-light p-1 py-0 rounded-circle'>
+                        <FontAwesomeIcon icon={faLocationDot} className='text-primary' />
+                    </span>
+                </button>
+                
+                <button 
+                    type="button" 
+                    onClick={handleTouristAttractionClick}
+                    className="btn btn-primary rounded-0 rounded-start rounded-pill"
+                >
+                    <span className="d-none text">Tourist Attractions</span>
+                    <span className='bg-light p-1 py-0 rounded-circle'>
+                        <FontAwesomeIcon icon={faMapLocation} className='text-primary' />
+                    </span>
+                </button>
             </div>
-        </>
+        </div>
     );
 }
 
